@@ -1,17 +1,35 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import styles from './TransactionStatement.module.css';
 import axios from 'axios';
 import { FaDownload } from 'react-icons/fa';
 import { PDFDownloadLink, Page, Text, View, Document } from '@react-pdf/renderer';
 import { UserContext } from '../../ctx/UserContextProvider';
 
+// Define a styles object for your PDF table
+const pdfTableStyles = {
+  table: {
+    width: '100%',
+    border: '1px solid #000',
+    borderCollapse: 'collapse',
+  },
+  th: {
+    border: '1px solid #000',
+    backgroundColor: '#f2f2f2',
+    padding: '8px',
+    textAlign: 'left',
+  },
+  td: {
+    border: '1px solid #000',
+    padding: '8px',
+    textAlign: 'left',
+  },
+};
+
 export default function TransactionStatement() {
   const { user } = useContext(UserContext);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(false);
-
   const handleFromDateChange = (e) => {
     setFromDate(e.target.value);
   };
@@ -20,15 +38,11 @@ export default function TransactionStatement() {
     setToDate(e.target.value);
   };
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
     try {
       if (user && user._id) {
-        const userId = user._id;
-
-        const response = await axios.get(`/api/transactions/${userId}`);
+        const response = await axios.get(`/api/transactions/${user._id}`);
         if (response.status === 200) {
-          console.log('Responses fetched successfully');
-          console.log('Responses: ', response.data);
           const data = response.data.transactions?.map((t) => {
             const date = new Date(t.timestamp);
             const formattedDate = date.toLocaleString();
@@ -59,7 +73,7 @@ export default function TransactionStatement() {
     } catch (err) {
       console.error('Error occurred:', err);
     }
-  };
+  }, [user, fromDate, toDate]);
 
   const isWithinDateRange = (date, fromDate, toDate) => {
     const transactionDate = date;
@@ -84,36 +98,15 @@ export default function TransactionStatement() {
     setTransactions(filteredTransactions);
   };
 
-  const handleShowTransactionsClick = () => {
+  const handleShowTransactionsClick = async () => {
     // First, fetch all transactions
     fetchTransactions();
-
     // Then, filter transactions based on the date range
     filterTransactionsByDate();
   };
 
   const generatePDFDocument = () => {
     const headers = ['Name', 'Account No', 'Transaction id', 'Amount', 'Date'];
-
-    // Define a styles object for your PDF table
-    const pdfTableStyles = {
-      table: {
-        width: '100%',
-        border: '1px solid #000',
-        borderCollapse: 'collapse',
-      },
-      th: {
-        border: '1px solid #000',
-        backgroundColor: '#f2f2f2',
-        padding: '8px',
-        textAlign: 'left',
-      },
-      td: {
-        border: '1px solid #000',
-        padding: '8px',
-        textAlign: 'left',
-      },
-    };
 
     return (
       <Document>
@@ -156,7 +149,7 @@ export default function TransactionStatement() {
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
   return (
     <div className={styles.transactionStatement}>
@@ -194,11 +187,7 @@ export default function TransactionStatement() {
           </tr>
         </thead>
         <tbody>
-          {loading ? (
-            <tr>
-              <td colSpan="5">Loading...</td>
-            </tr>
-          ) : transactions.length === 0 ? (
+          {transactions.length === 0 ? (
             <tr>
               <td colSpan="5">No transactions available.</td>
             </tr>
