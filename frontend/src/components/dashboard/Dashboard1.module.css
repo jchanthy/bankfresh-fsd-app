@@ -1,0 +1,92 @@
+.dashboard{
+    padding: 80px;
+}
+
+.serviceCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.serviceCard {
+    background: white;
+    color: #42526c;
+    border: 2px solid #657da4;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    width: 200px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.serviceCard:hover {
+    border-color: #6c424a;
+}
+
+.serviceName {
+    margin-top: 30px;
+    flex-grow: 1;
+}
+
+.serviceCard a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.serviceCard .serviceIcon {
+    margin: auto;
+}
+
+
+.heading {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.checkBalanceCard {
+    background: white;
+    color: #42526c;
+    border: 2px solid #657da4;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    width: 80%;
+    cursor: pointer;
+    margin: 0 auto;
+        /* Center the card horizontally */}
+
+.checkBalanceCard:hover {
+    border-color: #6c424a;
+}
+
+.checkBalanceHeading {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.checkBalanceButton {
+    margin-top: 15px;
+    background: #bb6316;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.checkBalanceButton:hover {
+    background: #6c424a;
+}

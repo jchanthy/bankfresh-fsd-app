@@ -1,0 +1,114 @@
+/* TransactionStatement.module.css */
+
+.transactionStatement {
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.search{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px 30px 0px;
+}
+h3{
+    font-size: 30px;
+    /* color:#f19139; */
+    margin: 0;
+    /* Header text color */
+}
+h4{
+    font-size: 20px;
+}
+.dateFilter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+/* input[type="text"] {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+} */
+.dateFilter input[type="date"]{
+    border: none;
+    border-bottom: 1px solid;
+    padding: 3px;
+}
+
+
+.transactionStatement button {
+    background-color:rgb(187, 99, 22);
+
+}
+
+
+
+button {
+    background-color: rgb(187, 99, 22);
+
+    /* Button background color */
+    color: #fff;
+    /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* TransactionStatement.module.css */
+
+/* Style for the transaction table */
+.transactionTable {
+    width: 100%;
+    /* border-collapse: collapse; */
+    margin-top: 20px;
+}
+
+/* Style for table header row */
+.tableHead th {
+    background-color: rgb(187, 99, 22);
+    text-align: left;
+    padding: 15px;
+    font-weight: bold;
+    color: white;
+    /* border: 1px solid #ddd; */
+}
+
+/* Style for table data rows */
+.transactionRow td {
+    text-align: left;
+    padding: 15px;
+    /* border: 1px solid #ddd; */
+}
+
+/* Style for alternating row colors */
+.transactionRow:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style for the icon in the "Name" column */
+.icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    font-weight: bold;
+    border-radius: 50%;
+    margin-right: 8px;
+    color: white;
+    font-size: 14px;
+}
+

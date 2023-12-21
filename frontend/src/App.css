@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.headSection {
+  flex: 1;
+  /* Take up available vertical space */
+}
+
+.container {
+  margin-top: 80px;
+  margin-left: 120px;
+}
+
+.contain {
+  margin-top: 80px;
+}

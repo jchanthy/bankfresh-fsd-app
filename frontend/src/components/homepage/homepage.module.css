@@ -1,0 +1,121 @@
+
+.banner{
+    padding-bottom: 130px;
+    background-image: url('../../assets/hero_2.jpg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.banner:before{
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    background: rgba(184, 178, 166, 0.7);
+}
+:global(.slick-slider) {
+    text-align: center; /* Center text alignment */
+  }
+.banner :global(.slick-slider) h4 {
+font-size: 57px;
+color: #fff;
+font-weight: 500;
+margin-bottom: 27px
+}
+.banner :global(.slick-slider) p {
+    color: white;
+    font-size: 20px;
+}
+.slider{
+    padding: 40px 0px 0px 0px;
+}
+.slider h2{
+    font-size: 35px;
+    color: #f19139;
+    text-align: center;
+}
+.slider p{
+    font-size: 17px;   
+    text-align: center;
+}
+
+.horizontal_list li p{
+    font-size: 20px;
+    color: white;
+    font-weight: 500;    
+}
+.horizontal_list li img{
+    max-width: 60px;
+}
+.horizontal_list{
+    list-style: none; 
+  padding: 30px; 
+  margin: 0; 
+  background: #f19139;
+    display: flex;
+    justify-content: space-around;
+}
+.horizontal_list li {
+    display: inline-block; 
+    text-align: center;
+}
+.what{
+    display: flex;
+    padding: 50px 0 50px 20px;
+    align-items: center;
+}
+.left{
+    flex: 2;
+}
+.right{
+    flex: 10;
+}
+.contact{
+    display: flex;
+    margin: 60px 0px;
+}
+.contact_us{
+    background: #e4e4e466;
+    padding: 60px 0px;
+}
+.contact_us h2{
+    font-size: 30px;
+    color:#f19139;
+    text-align: center;
+}
+.address img{
+    max-width: 33px;
+    margin-top: 5px;
+}
+.address, .phone, .email{
+    flex: 4;
+    text-align: center;
+
+}
+.phone img, .email img{
+    max-width: 48px;
+}
+.contact_form h5{
+    font-size: 25px;
+    margin-top: 0;
+}
+.contact_form{
+    width: 70%;
+    background: white;
+    margin: 0 auto;
+    padding: 50px;
+}
+.contact_form input[type="text"], .contact_form input[type="email"],  .contact_form textarea{
+    width: 30%;
+    padding: 7px;
+    margin-bottom: 33px;
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    text-align: center;
+    font-size: 14px;
+    outline: 0;
+    margin-right:30px;
+}

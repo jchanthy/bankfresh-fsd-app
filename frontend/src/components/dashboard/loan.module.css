@@ -1,0 +1,65 @@
+/* loan.module.css */
+
+.loans {
+    padding: 20px;
+}
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.loanTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+.loanTable th,
+.loanTable td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: black;
+}
+
+.loanTable th {
+    background-color: transparent;
+}
+
+.loanRow .purposeIcon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+        color: inherit;
+        padding: 0;
+        /* Reset padding to inherit from parent */
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.showMoreButton {
+    text-align: center;
+    margin-top: 16px;
+}
+
+button {
+    /* background-color: #007BFF; */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    /* background-color: #0056b3; */
+}

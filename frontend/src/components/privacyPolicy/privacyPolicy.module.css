@@ -1,0 +1,21 @@
+.privacy_policy {
+    text-align: left;
+    padding: 0 20px;
+  }
+  .privacy_policy h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .privacy_policy h2 {
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .privacy_policy p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  

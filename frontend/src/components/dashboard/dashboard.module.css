@@ -1,0 +1,205 @@
+/* Dashboard.module.css */
+
+.dashboard {
+    height: 100%;
+}
+
+.balanceContent {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.dashboardContent {
+    display: flex;
+}
+
+.accountBalance {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #a0bff0;
+    width: 80%;
+    height: 100px;
+    padding: 5px;
+    border-radius: 40px;
+    border: 1px solid #cccccc;
+}
+
+/* Card.module.css */
+
+.card {
+    width: 350px;
+    height: auto;
+    padding: 5px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+    margin-right: 30px;
+    color: #333;
+    border-radius: 15px;
+}
+
+h2 {
+    color: #333;
+}
+
+.creditCard {
+    width: 300px;
+    height: 180px;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to right, #657da4, #8286b9d6, #ec9ec4);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cardLogo {
+    font-size: 24px;
+}
+
+.cardNumber {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.cardHolder {
+    font-size: 16px;
+}
+
+.cardExpiration {
+    font-size: 16px;
+    align-self: flex-end;
+}
+
+.cardTypeShowMore {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cardType {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.showMoreButton button {
+    background-color: #f5a623;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+        text-decoration: none;
+                text-decoration: none;
+}
+
+.recentTransactions {
+    margin-top: 20px;
+}
+
+.recentTransactions h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.transaction:last-child {
+    border-bottom: none;
+}
+
+.transactionName {
+    font-weight: 450;
+    font-size: 14px;
+}
+
+.transactionAmount {
+    font-weight: 450;
+    font-size: 14px;
+}
+
+/* Styles for the chart component */
+.chart {
+    margin-top: 20px;
+}
+
+.chart h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style for Chart.js chart */
+.chart canvas {
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Utilities.module.css */
+.utilitiesContainer {
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background-color: white;
+    margin-left: 20px;
+}
+
+.utilities {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 450px;
+    margin-bottom: 20px;
+}
+
+.utility {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 2px solid transparent;
+    padding: 10px;
+    border-radius: 10px;
+    width: 18%;
+}
+
+.utility:hover {
+    border-color: #007BFF;
+}
+
+.utility span {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.utility svg {
+    font-size: 36px;
+}
+
+.transactionChart {
+    display: flex;
+    flex-direction: column;
+}
+
+.chartUtilities {
+    display: flex;
+    margin-bottom: 5px;
+}

@@ -1,0 +1,96 @@
+.loans{
+    display: flex;
+    background-color: rgb(187, 99, 22);
+    padding: 58px 58px 125px;
+}
+.bank_loans{
+    position: relative;
+    min-height: 800px;
+}
+.loans .loans_left, .loans .loans_right{
+    flex: 6;
+}
+.loans .loans_right img{
+    max-width: 100%;
+    border-radius: 25px;
+}
+.loans .loans_left{
+    text-align: left;
+    color: white !important;
+}
+.loans .loans_left p{
+    font-size: 19px;
+}
+.loans .loans_left h1{
+    font-size: 40px;
+}
+.loan_options, .details{
+    display: flex;
+    margin-top: 20px;
+}
+.details{
+    margin-top: 40px;
+}
+.loan_options p{
+    margin: 0;
+}
+.loan_options select, .loan_options input{
+    padding: 7px;
+    font-size: 15px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin-right: 50px;
+    width: 230px;
+}
+.details input{
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    font-size: 14px;
+    outline: 0;
+    margin-right:30px;
+    margin-right: 110px;
+    width: 77%;
+}
+.loan_form{
+    width: 70%;
+    margin: 0 auto;
+    padding: 40px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    position:absolute;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    top: 64%;
+    background: white;
+}
+
+.loan_form {
+    width: 70%;
+    margin: 0 auto;
+    padding: 40px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    /* Add margin to separate cards */
+    background: white;
+}
+
+/* Add this new style to control the layout */
+.loan_form:first-child {
+    margin-top: 0;
+    /* Remove top margin for the first card */
+}
+
+.card {
+    margin-bottom: 150px;
+}
+
+.loan_form h5{
+    margin-bottom: 30px;
+    text-align: left;
+    font-size: 18px;
+    margin-top: 0;
+}
+

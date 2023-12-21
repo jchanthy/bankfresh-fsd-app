@@ -1,0 +1,30 @@
+/* LoginHeader.module.css */
+.container {
+    padding: 0 20px;
+}
+
+.header_innr_wrp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    /* box-shadow: 0 1px 5px #ababab; */
+    position: fixed;
+    width: 98%;
+    background-color: #fff; 
+    z-index: 1000; 
+}
+
+.logo img {
+    width: 13.3rem;
+    height: 3.5rem;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.open_button{
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    margin-right: 18px;
+
+}

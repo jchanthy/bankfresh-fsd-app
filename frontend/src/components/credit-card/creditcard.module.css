@@ -1,0 +1,133 @@
+.creditCard {
+    min-width: 330px;
+    height: 180px;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to right, #657da4, #8286b9d6, #ec9ec4);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.selected {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.9);
+    min-width: 330px;
+        height: 180px;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(to right, #657da4, #8286b9d6, #ec9ec4);
+        align-items: center;
+        text-align: center;
+        margin-right: 5px;
+}
+
+.cardLogo {
+    font-size: 24px;
+}
+
+.cardNumber {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.cardHolder {
+    font-size: 16px;
+}
+
+.cardExpiration {
+    font-size: 16px;
+    align-self: flex-end;
+}
+
+.cardComponent {
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.cardLeft {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    /* width: 55%; */
+}
+
+.transactionStatement {
+    /* width: 45%; */
+    padding: 5px;
+}
+
+.cardActions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.cardActionsHeader {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.cardActionButtonComponent {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cardActionInput {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.cardActionButtonSetLimit {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cardActionButtonApplyCard {
+    background: #f19139;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cardActionButtonBlockCard {
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cardActionButton:last-child {
+    margin-right: 0;
+    /* Remove right margin for the last button */
+}
+
+.cardActionButton:hover {
+    background: #45a049;
+}

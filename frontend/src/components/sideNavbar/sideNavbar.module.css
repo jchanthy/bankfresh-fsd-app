@@ -1,0 +1,51 @@
+/* SideNavbar.module.css */
+
+.sideNavbar {
+    background-color: white;
+    color: #333;
+    width: 110px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    margin-top: 133px;
+}
+
+.navList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navItem {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    /* Remove default link underline */
+    color: inherit;
+    /* Inherit the color from the parent */
+}
+
+.icon:hover {
+    color: rgb(187, 99, 22);
+}
+
+.icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+    /* Spacing between icon and label */
+}
+
+.label {
+    font-size: 12px;
+}
+
+.navItem.active {
+    background-color: #555;
+}

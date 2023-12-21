@@ -1,0 +1,83 @@
+/* RecentPayee.module.css */
+
+.payeeContainer {
+    padding: 10px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 10px;
+    /* width: 90%; */
+    width: 350px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    /* Header text color */
+}
+
+.payeeList {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-between; */
+    /* gap: 20px; */
+}
+
+.payeeCard {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    /* border: 1px solid #ccc; */
+    border-radius: 3px;
+    padding: 10px;
+    width: 85%;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3px;
+}
+
+.iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Circle icon background color */
+    color: #fff;
+    /* Circle icon text color */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
+
+.payeeName {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.payeeAmount {
+    font-size: 14px;
+    color: #555;
+    /* Amount text color */
+}
+
+.showMoreButton {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.showMoreButton button {
+    background-color: transparent;
+    /* Button background color */
+    color: #007bff;
+    /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
