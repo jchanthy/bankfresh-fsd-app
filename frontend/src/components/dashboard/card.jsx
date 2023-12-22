@@ -7,7 +7,7 @@ import { UserContext } from '../../ctx/UserContextProvider';
 export default function Card() {
   const [transactions, setTransactions] = useState([]); // State for storing transactions
   const [creditCards, setCreditCards] = useState([]); // State for storing credit card details
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
 
   // Fetch recent transactions when the component mounts
   useEffect(() => {
@@ -17,7 +17,11 @@ export default function Card() {
         const userId = user._id;
 
         // Send a GET request to fetch recent transactions
-        const response = await axios.get(`/api/transactions/${userId}`);
+        const response = await axios.get(`/api/transactions/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.status === 200) {
           const data = response.data.transactions.slice(0, 4); // Get the top 4 transactions
@@ -31,7 +35,7 @@ export default function Card() {
     };
 
     fetchRecentTransactions();
-  }, [user]);
+  }, [user, token]);
 
   // Fetch recent transactions and credit card details when the component mounts
   useEffect(() => {
@@ -40,7 +44,11 @@ export default function Card() {
         const userId = user._id;
 
         // Send a GET request to fetch credit card details
-        const response = await axios.get(`/api/credit-cards/${userId}`);
+        const response = await axios.get(`/api/credit-cards/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.status === 200) {
           const data = response.data.creditCards[0];
@@ -55,7 +63,7 @@ export default function Card() {
     };
 
     fetchCreditCards(); // Add this line to fetch credit card details
-  }, [user]);
+  }, [user, token]);
 
   return (
     <div className={styles.card}>

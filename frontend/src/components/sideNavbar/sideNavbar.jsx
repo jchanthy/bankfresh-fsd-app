@@ -1,47 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {
-  FaHome,
-  FaExchangeAlt,
-  FaUser,
-  FaFileAlt,
-  FaMoneyBillAlt,
-  FaLifeRing,
-} from "react-icons/fa";
-import styles from "./sideNavbar.module.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaHome, FaExchangeAlt, FaUser, FaFileAlt, FaMoneyBillAlt } from 'react-icons/fa';
+import styles from './sideNavbar.module.css';
 
 const tabs = [
-  { icon: <FaHome />, label: "Home", to: "/dashboard" },
-  { icon: <FaExchangeAlt />, label: "Transfers", to: "/transferMoney" },
+  { icon: <FaHome />, label: 'Home', to: '/dashboard' },
+  { icon: <FaExchangeAlt />, label: 'Transfers', to: '/transferMoney' },
   {
     icon: <FaFileAlt />,
-    label: "Digital Statement",
-    to: "/transactionStatement",
+    label: 'Digital Statement',
+    to: '/transactionStatement',
   },
   {
     icon: <FaMoneyBillAlt />,
-    label: "Card Service",
-    to: "/card-services",
+    label: 'Card Service',
+    to: '/card-services',
   },
   {
     icon: <FaMoneyBillAlt />,
-    label: "PayBills",
-    to: "/payBills",
+    label: 'PayBills',
+    to: '/payBills',
   },
   {
     icon: <FaUser />,
-    label: "Update Profile",
-    to: "/update-profile",
+    label: 'Update Profile',
+    to: '/update-profile',
   },
   {
     icon: <FaMoneyBillAlt />,
-    label: "Apply for Loan",
-    to: "/loan",
+    label: 'Apply for Loan',
+    to: '/loan',
   },
   {
     icon: <FaMoneyBillAlt />,
-    label: "Loans Applied",
-    to: "/loan-applied",
+    label: 'Loans Applied',
+    to: '/loan-applied',
   },
 ];
 

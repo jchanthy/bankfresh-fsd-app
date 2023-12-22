@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styles from './creditcard.module.css';
 import axios from 'axios';
 import TransactionStatement from './cardTransaction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../../ctx/UserContextProvider';
 
 const CreditCard = () => {
   const [creditCards, setCreditCards] = useState([]);
@@ -11,12 +12,12 @@ const CreditCard = () => {
   const [userId, setUserId] = useState(null);
   const [transactionLimit, setTransactionLimit] = useState(0);
   const [cardTransactions, setCardTransactions] = useState([]);
+  const { user, token } = useContext(UserContext);
 
   const fetchCreditCards = async () => {
     try {
-      const userData = JSON.parse(localStorage.getItem('user'));
-      if (userData && userData._id) {
-        const userId = userData._id;
+      if (user && user._id) {
+        const userId = user._id;
         setUserId(userId);
 
         const response = await axios.get(`/api/credit-cards/${userId}`);

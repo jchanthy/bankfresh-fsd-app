@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/header/header';
@@ -16,12 +16,11 @@ import Homepage from './components/homepage/homepage';
 import UpdateUser from './components/updateProfile/updateProfile';
 import LoanApplied from './components/loanApplied/loanApplied';
 import CreditCard from './components/credit-card/creditcard';
-import { UserContext } from './ctx/UserContextProvider'
+import { UserContext } from './ctx/UserContextProvider';
 
 const App = () => {
-  const {isAuthenticated} = useContext(UserContext);
- 
-  
+  const { isAuthenticated } = useContext(UserContext);
+
   return (
     <Router>
       <div className="App">

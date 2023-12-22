@@ -70,7 +70,6 @@ function SignupPage() {
 
       if (response.data.message === 'User registered successfully') {
         toast.success('User registered successfully!!');
-        sessionStorage.setItem('userId', response.data.user._id);
         navigate('/login');
       } else if (response.data.message === 'User already exists') {
         setError('User with this email already exists.');
@@ -86,7 +85,6 @@ function SignupPage() {
 
   return (
     <div>
-      {/* <div className={styles.background}></div> */}
       <div className={styles.registerContainer}>
         <div className={styles.leftContainer}>
           <div className={styles.leftContainerImg}>
@@ -94,7 +92,6 @@ function SignupPage() {
           </div>
           <div className={styles.leftContainerContent}>
             <h2>Where Trust Meets Prosperity</h2>
-            {/* <p>Choose from over 100,000 online video.</p> */}
           </div>
         </div>
         <div className={styles.rightContainer}>
@@ -104,7 +101,6 @@ function SignupPage() {
           </div>
           <div className={styles.signupCard}>
             <form onSubmit={handleSubmit}>
-              {/* Full Name Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="fullName">
                   Full Name
@@ -120,7 +116,6 @@ function SignupPage() {
                 />
               </div>
 
-              {/* Email Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="email">
                   Email
@@ -128,7 +123,6 @@ function SignupPage() {
                 <input className={styles.input} type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
 
-              {/* Phone Number Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="phoneNumber">
                   Phone Number
@@ -136,7 +130,6 @@ function SignupPage() {
                 <input className={styles.input} type="tel" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
               </div>
 
-              {/* Address Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="address">
                   Address
@@ -144,7 +137,6 @@ function SignupPage() {
                 <input className={styles.input} type="text" id="address" name="address" value={formData.address} onChange={handleChange} />
               </div>
 
-              {/* Gender Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="gender">
                   Gender
@@ -157,7 +149,6 @@ function SignupPage() {
                 </select>
               </div>
 
-              {/* Date of Birth Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="dob">
                   Date of Birth
@@ -172,7 +163,6 @@ function SignupPage() {
                 <input className={styles.input} type="number" id="balance" name="balance" value={formData.balance} onChange={handleChange} />
               </div>
 
-              {/* Password Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="password">
                   Password
@@ -187,7 +177,6 @@ function SignupPage() {
                   required
                 />
               </div>
-              {/* Security Question Dropdown */}
 
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="securityQuestion">
@@ -208,7 +197,6 @@ function SignupPage() {
                 </select>
               </div>
 
-              {/* Security Answer Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="securityAnswer">
                   Enter Security Answer
@@ -224,7 +212,6 @@ function SignupPage() {
                 />
               </div>
 
-              {/* Error message */}
               {error && <p className={styles.error}>{error}</p>}
               <div className={styles.btn_wrp}>
                 <button className={styles.button} type="submit">
@@ -236,7 +223,7 @@ function SignupPage() {
           </div>
 
           <p className={styles.loginLinkp}>
-            Already have an account?{' '}
+            Already have an account?
             <Link to="/login" className={styles.loginLink}>
               Login
             </Link>

@@ -6,14 +6,18 @@ import { UserContext } from '../../ctx/UserContextProvider';
 
 export default function Loan() {
   const [loanData, setLoanData] = useState([]);
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
 
   useEffect(() => {
     // Fetch the user ID from local storage
     if (user && user._id) {
       // Fetch loan data from the backend API
       axios
-        .get(`/api/loans/${user._id}`)
+        .get(`/api/loans/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           if (response.status === 200) {
             const loanRequests = response.data.loanRequests;
@@ -28,7 +32,7 @@ export default function Loan() {
           console.error('Error fetching loan data:', error);
         });
     }
-  }, [user]);
+  }, [user, token]);
 
   function getRandomColor() {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);

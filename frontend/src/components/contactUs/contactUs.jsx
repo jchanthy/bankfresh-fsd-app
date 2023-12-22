@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import styles from "./contactUs.module.css";
-import location from "../../assets/location.png";
-import email from "../../assets/email.png";
-import phone from "../../assets/phone.png";
+import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import styles from './contactUs.module.css';
+import location from '../../assets/location.png';
+import email from '../../assets/email.png';
+import phone from '../../assets/phone.png';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    subject: "",
-    message: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: '',
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
@@ -29,28 +29,23 @@ const ContactUs = () => {
     e.preventDefault();
 
     // Basic form validation
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.subject ||
-      !formData.message
-    ) {
-      toast.error("Please fill in all required fields.");
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
+      toast.error('Please fill in all required fields.');
       return;
     }
 
     // Email format validation using a regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      toast.error("Please enter a valid email address.");
+      toast.error('Please enter a valid email address.');
       return;
     }
 
     // Simulated form submission with a delay
+    // TODO: Replace with actual form submission
     setTimeout(() => {
-      toast.success("Form submitted successfully!", {
-        position: "top-right",
+      toast.success('Form submitted successfully!', {
+        position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -67,24 +62,22 @@ const ContactUs = () => {
       <div className={styles.contact}>
         <div className={styles.address}>
           <img src={location} alt="Location" />
-          <p>123, ABC Street, Mumbai, Maharashtra</p>
+          <p>19524 Nordhoff St, Northridge, California, 91324</p>
         </div>
         <div className={styles.phone}>
           <img src={phone} alt="Phone" />
-          <p>+911230456789</p>
+          <p>(305) 408-5554</p>
         </div>
         <div className={styles.email}>
           <img src={email} alt="Email" />
-          <p>bankfresh@gmail.com</p>
+          <p>customercare@bankfresh.com</p>
         </div>
       </div>
       <div className={styles.contact_form}>
         <h5>Contact Form</h5>
         {/* Display "Form Submitted" message when formSubmitted is true */}
         {formSubmitted ? (
-          <div className="form-submitted-message">
-            Form Submitted! Thank you for your message.
-          </div>
+          <div className="form-submitted-message">Form Submitted! Thank you for your message.</div>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="form_group">
@@ -96,41 +89,14 @@ const ContactUs = () => {
                 onChange={handleChange}
                 className="form_control"
               />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="form_control"
-              />
+              <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} className="form_control" />
             </div>
             <div className="form_group">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="form_control"
-              />
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={handleChange}
-                className="form_control"
-              />
+              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="form_control" />
+              <input type="text" name="subject" placeholder="Subject" value={formData.subject} onChange={handleChange} className="form_control" />
             </div>
             <div className="form_group">
-              <textarea
-                name="message"
-                placeholder="Message"
-                value={formData.message}
-                onChange={handleChange}
-                className="form_control"
-              ></textarea>
+              <textarea name="message" placeholder="Message" value={formData.message} onChange={handleChange} className="form_control"></textarea>
             </div>
             <button type="submit" className="btn btn-primary">
               Submit

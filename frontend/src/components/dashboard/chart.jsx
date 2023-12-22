@@ -5,10 +5,8 @@ import Chart from 'chart.js/auto';
 import axios from 'axios';
 import { UserContext } from '../../ctx/UserContextProvider';
 
-Chart.register();
-
 export default function ChartComponent() {
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -22,13 +20,18 @@ export default function ChartComponent() {
     ],
   });
 
+  useEffect(() => Chart.register(), []);
+
   useEffect(() => {
     // Fetch data from the backend API
-
     const userId = user._id;
 
     axios
-      .get(`/api/transactions/${userId}`)
+      .get(`/api/transactions/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           const transactionData = response.data.transactions;
@@ -38,16 +41,16 @@ export default function ChartComponent() {
           const data = transactionData.map((transaction) => transaction.amount);
 
           // Update the chart data with the fetched data
-          setChartData({
-            ...chartData,
+          setChartData((chartState) => ({
+            ...chartState,
             labels,
             datasets: [
               {
-                ...chartData.datasets[0],
+                ...chartState.datasets[0],
                 data,
               },
             ],
-          });
+          }));
         } else {
           console.log('Unable to fetch transaction data:', response.data.error);
         }
@@ -55,7 +58,7 @@ export default function ChartComponent() {
       .catch((error) => {
         console.error('Error fetching transaction data:', error);
       });
-  }, [user, chartData]);
+  }, [user, token]);
 
   const chartOptions = {
     scales: {

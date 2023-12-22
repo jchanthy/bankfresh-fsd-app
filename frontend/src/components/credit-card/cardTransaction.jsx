@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
-import styles from "./cardTransaction.module.css";
-import { FaDownload } from "react-icons/fa";
-import {
-  PDFDownloadLink,
-  Page,
-  Text,
-  View,
-  Document,
-} from "@react-pdf/renderer";
+import React, { useState, useEffect } from 'react';
+import styles from './cardTransaction.module.css';
+import { FaDownload } from 'react-icons/fa';
+import { PDFDownloadLink, Page, Text, View, Document } from '@react-pdf/renderer';
 
 export default function TransactionStatement({ transactionsData }) {
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [filteredTransactions, setFilteredTransactions] =
-    useState(transactionsData); // Initialize with all transactions
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+  const [filteredTransactions, setFilteredTransactions] = useState(transactionsData); // Initialize with all transactions
 
   useEffect(() => {
     setFilteredTransactions(transactionsData);
@@ -32,7 +24,7 @@ export default function TransactionStatement({ transactionsData }) {
     const fromDateObj = new Date(fromDate);
     const toDateObj = new Date(toDate);
 
-    if (fromDate === "" && toDate === "") {
+    if (fromDate === '' && toDate === '') {
       // If both filters are empty, show all transactions
       setFilteredTransactions(transactionsData);
     } else {
@@ -46,21 +38,20 @@ export default function TransactionStatement({ transactionsData }) {
   };
 
   const handleShowTransactionsClick = () => {
-    console.log("in transaction statement ", transactionsData);
     // Filter transactions based on the date range
     filterTransactionsByDate();
   };
 
   const generatePDFDocument = () => {
     // Define the headers
-    const headers = ["Name", "Account No", "Transaction id", "Amount"];
+    const headers = ['Name', 'Account No', 'Transaction id', 'Amount'];
 
     // Define styles for the PDF
     const pdfStyles = {
       page: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        backgroundColor: "#ffffff",
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        backgroundColor: '#ffffff',
       },
       section: {
         margin: 10,
@@ -68,20 +59,20 @@ export default function TransactionStatement({ transactionsData }) {
         flexGrow: 1,
       },
       table: {
-        width: "100%",
-        border: "1px solid #000",
-        borderCollapse: "collapse",
+        width: '100%',
+        border: '1px solid #000',
+        borderCollapse: 'collapse',
       },
       th: {
-        border: "1px solid #000",
-        backgroundColor: "#f2f2f2",
-        padding: "8px",
-        textAlign: "left",
+        border: '1px solid #000',
+        backgroundColor: '#f2f2f2',
+        padding: '8px',
+        textAlign: 'left',
       },
       td: {
-        border: "1px solid #000",
-        padding: "8px",
-        textAlign: "left",
+        border: '1px solid #000',
+        padding: '8px',
+        textAlign: 'left',
       },
     };
 
@@ -133,17 +124,11 @@ export default function TransactionStatement({ transactionsData }) {
           <input type="date" value={fromDate} onChange={handleFromDateChange} />
           <label>To Date:</label>
           <input type="date" value={toDate} onChange={handleToDateChange} />
-          <button onClick={handleShowTransactionsClick}>
-            Show Transactions
-          </button>
-          <PDFDownloadLink
-            document={generatePDFDocument()}
-            fileName="transaction_statement.pdf"
-            className="button"
-          >
+          <button onClick={handleShowTransactionsClick}>Show Transactions</button>
+          <PDFDownloadLink document={generatePDFDocument()} fileName="transaction_statement.pdf" className="button">
             {({ blob, url, loading, error }) =>
               loading ? (
-                "Generating PDF..."
+                'Generating PDF...'
               ) : (
                 <a href={url}>
                   <FaDownload />
@@ -163,20 +148,12 @@ export default function TransactionStatement({ transactionsData }) {
           </tr>
         </thead>
         <tbody>
-          {loading ? (
+          {filteredTransactions.length === 0 ? (
             <tr>
-              <td colSpan="5">Loading...</td>
-            </tr>
-          ) : filteredTransactions.length === 0 ? (
-            <tr>
-              <td colSpan="4">
-                No transactions available in the selected date range.
-              </td>
+              <td colSpan="4">No transactions available in the selected date range.</td>
             </tr>
           ) : (
-            filteredTransactions.map((transaction, index) => (
-              <TransactionRow key={index} transaction={transaction} />
-            ))
+            filteredTransactions.map((transaction, index) => <TransactionRow key={index} transaction={transaction} />)
           )}
         </tbody>
       </table>
@@ -186,27 +163,24 @@ export default function TransactionStatement({ transactionsData }) {
 
 function TransactionRow({ transaction }) {
   const getRandomColor = () => {
-    return "#" + Math.floor(Math.random() * 16777215).toString(16);
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
   };
 
   function getInitials(name) {
-    if (name && typeof name === "string") {
-      const nameParts = name.split(" ");
+    if (name && typeof name === 'string') {
+      const nameParts = name.split(' ');
       if (nameParts.length >= 2) {
         return nameParts[0][0] + nameParts[1][0];
       }
       return nameParts[0][0];
     }
-    return "";
+    return '';
   }
 
   return (
     <tr className={styles.transactionRow}>
       <td>
-        <div
-          className={styles.icon}
-          style={{ backgroundColor: getRandomColor() }}
-        >
+        <div className={styles.icon} style={{ backgroundColor: getRandomColor() }}>
           {getInitials(transaction.name)}
         </div>
         {transaction.receiverName}

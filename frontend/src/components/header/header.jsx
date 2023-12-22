@@ -1,39 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import Logo from "../../assets/logo.png";
-import styles from "./header.module.css";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from 'react';
+import Logo from '../../assets/logo.png';
+import styles from './header.module.css';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../ctx/UserContextProvider';
 
 function Header() {
+  const { token, logout } = useContext(UserContext);
   const navigate = useNavigate();
   const goToLogin = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-    window.location.reload();
+    logout();
+    navigate('/login');
   };
 
   const handleLogoClick = () => {
     if (token) {
       // Token is present, navigate to the dashboard
-      navigate("/dashboard");
+      navigate('/dashboard');
     } else {
       // Token is not present, navigate to the home page
-      navigate("/");
+      navigate('/');
     }
   };
-
-  // Check if a token is present in local storage
-  const token = localStorage.getItem("token");
 
   return (
     <div className={styles.header_wrp}>
       <div className={styles.header_innr_wrp}>
         <div className={styles.logo} onClick={handleLogoClick}>
-          <img src={Logo} alt="" />
+          <img src={Logo} alt="Bankfresh" />
         </div>
         <div className={styles.login}>
-          {/* Conditionally render buttons */}
           {token ? (
             <button onClick={goToLogin} className={styles.login_button}>
               Logout

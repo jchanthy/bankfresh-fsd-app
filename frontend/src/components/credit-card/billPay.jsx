@@ -1,29 +1,31 @@
-import React, { useState } from "react";
-import styles from "./billPay.module.css";
-import recharge_phone from "../../assets/phone-icon.png";
-import gas from "../../assets/gas.jpg";
-import water from "../../assets/water.png";
-import electricity from "../../assets/electricity.png";
-import dth from "../../assets/dth.png";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useContext } from 'react';
+import styles from './billPay.module.css';
+import recharge_phone from '../../assets/phone-icon.png';
+import gas from '../../assets/gas.jpg';
+import water from '../../assets/water.png';
+import electricity from '../../assets/electricity.png';
+import dth from '../../assets/dth.png';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../../context/userContext';
 
 const PayBills = ({ creditCardId }) => {
-  const [selectedForm, setSelectedForm] = useState("MobileRecharge");
+  const { user } = useContext(UserContext);
+  const [selectedForm, setSelectedForm] = useState('MobileRecharge');
 
   const openForm = (formName) => {
     setSelectedForm(formName);
   };
 
   // Form data and logic for "Mobile Recharge"
-  const [localMobileNumber, setLocalMobileNumber] = useState("");
-  const [amount, setAmount] = useState("");
+  const [localMobileNumber, setLocalMobileNumber] = useState('');
+  const [amount, setAmount] = useState('');
 
   const handleMobileNumberChange = (event) => {
     // Remove the "+91" prefix and any non-numeric characters from the input
-    const newMobileNumber = event.target.value.replace(/\D/g, "");
+    const newMobileNumber = event.target.value.replace(/\D/g, '');
     setLocalMobileNumber(newMobileNumber);
   };
 
@@ -34,7 +36,7 @@ const PayBills = ({ creditCardId }) => {
   const handleRecharge = async () => {
     // Add validation checks
     if (!localMobileNumber || !amount) {
-      toast.error("Please fill in all required fields.");
+      toast.error('Please fill in all required fields.');
       return;
     }
 
@@ -45,23 +47,20 @@ const PayBills = ({ creditCardId }) => {
     try {
       // Prepare the data to send to the backend
       const data = {
-        userId: JSON.parse(localStorage.getItem("user"))._id, // Get the user's ID from localStorage
+        userId: user._id, // Get the user's ID from localStorage
         receiverUserId: generateRandomUserId(), // Implement the function to generate a random user ID
         amount,
-        description: "Optional description of the transaction",
-        receiverName: "Bill Pay",
+        description: 'Optional description of the transaction',
+        receiverName: 'Bill Pay',
         cardId: creditCardId,
       };
 
-      console.log("card id", creditCardId);
-
       // Make an HTTP POST request to your backend API endpoint
-      const response = await axios.post("/api/card-transactions/create", data);
+      await axios.post('/api/card-transactions/create', data);
 
       // Handle the response from the backend (e.g., show a success message)
-      console.log("Payment successful:", response.data);
-      toast.success("Payment Successful", {
-        position: "top-right",
+      toast.success('Payment Successful', {
+        position: 'top-right',
         autoClose: 3000, // Close the toast after 3 seconds
         hideProgressBar: false,
         closeOnClick: true,
@@ -69,11 +68,9 @@ const PayBills = ({ creditCardId }) => {
         draggable: true,
       });
     } catch (error) {
-      // Handle any errors (e.g., show an error message)
-      console.error("Payment failed:", error);
       // Show an error toast message
-      toast.error("Payment Failed", {
-        position: "top-right",
+      toast.error('Payment Failed', {
+        position: 'top-right',
         autoClose: 3000, // Close the toast after 3 seconds
         hideProgressBar: false,
         closeOnClick: true,
@@ -90,31 +87,31 @@ const PayBills = ({ creditCardId }) => {
       <h2>Recharge And PayBills</h2>
       <div className={styles.icons}>
         <div className={styles.recharge}>
-          <button onClick={() => openForm("MobileRecharge")}>
+          <button onClick={() => openForm('MobileRecharge')}>
             <img src={recharge_phone} alt="Mobile Recharge" />
             <p>Mobile Recharge</p>
           </button>
         </div>
         <div className={styles.electricity}>
-          <button onClick={() => openForm("Electricity")}>
+          <button onClick={() => openForm('Electricity')}>
             <img src={electricity} alt="Electricity" />
             <p>Electricity</p>
           </button>
         </div>
         <div className={styles.gas}>
-          <button onClick={() => openForm("Gas")}>
+          <button onClick={() => openForm('Gas')}>
             <img src={gas} alt="Gas" />
             <p>Gas</p>
           </button>
         </div>
         <div className={styles.water}>
-          <button onClick={() => openForm("Water")}>
+          <button onClick={() => openForm('Water')}>
             <img src={water} alt="Water" />
             <p>Water</p>
           </button>
         </div>
         <div className={styles.dth}>
-          <button onClick={() => openForm("DTH")}>
+          <button onClick={() => openForm('DTH')}>
             <img src={dth} alt="DTH" />
             <p>DTH</p>
           </button>
@@ -122,7 +119,7 @@ const PayBills = ({ creditCardId }) => {
       </div>
 
       {/* Conditionally render the selected form */}
-      {selectedForm === "MobileRecharge" ? (
+      {selectedForm === 'MobileRecharge' ? (
         <MobileRechargeForm
           mobileNumber={localMobileNumber}
           amount={amount}
@@ -137,13 +134,7 @@ const PayBills = ({ creditCardId }) => {
   );
 };
 
-function MobileRechargeForm({
-  mobileNumber,
-  amount,
-  onMobileNumberChange,
-  onAmountChange,
-  onRecharge,
-}) {
+function MobileRechargeForm({ mobileNumber, amount, onMobileNumberChange, onAmountChange, onRecharge }) {
   return (
     <div className={styles.pay_form}>
       <h3>Mobile Recharge</h3>
@@ -161,14 +152,7 @@ function MobileRechargeForm({
         </div>
         <div className={styles.form_fields}>
           <label htmlFor="amount">Amount:</label>
-          <input
-            type="text"
-            id="amount"
-            value={amount}
-            onChange={onAmountChange}
-            placeholder="Enter amount"
-            className={styles.form_input}
-          />
+          <input type="text" id="amount" value={amount} onChange={onAmountChange} placeholder="Enter amount" className={styles.form_input} />
         </div>
         <button type="button" onClick={onRecharge}>
           Recharge
@@ -179,8 +163,8 @@ function MobileRechargeForm({
 }
 
 function GenericForm({ heading, creditCardId, onHandleSubmit }) {
-  const [billNumber, setBillNumber] = useState("");
-  const [amount, setAmount] = useState("");
+  const [billNumber, setBillNumber] = useState('');
+  const [amount, setAmount] = useState('');
 
   const handleBillNumberChange = (event) => {
     setBillNumber(event.target.value);
@@ -193,7 +177,7 @@ function GenericForm({ heading, creditCardId, onHandleSubmit }) {
   const handleSubmit = async () => {
     // Add validation checks
     if (!billNumber || !amount) {
-      toast.error("Please fill in all required fields.");
+      toast.error('Please fill in all required fields.');
       return;
     }
     const generateRandomUserId = () => {
@@ -203,22 +187,22 @@ function GenericForm({ heading, creditCardId, onHandleSubmit }) {
     try {
       // Prepare the data to send to the backend
       const data = {
-        userId: JSON.parse(localStorage.getItem("user"))._id, // Get the user's ID from localStorage
+        userId: JSON.parse(localStorage.getItem('user'))._id, // Get the user's ID from localStorage
         receiverUserId: generateRandomUserId(), // Implement the function to generate a random user ID
         amount,
-        description: "Optional description of the transaction",
-        receiverName: "Bill Pay",
+        description: 'Optional description of the transaction',
+        receiverName: 'Bill Pay',
         cardId: creditCardId,
       };
 
       // Make an HTTP POST request to your backend API endpoint
-      const response = await axios.post("/api/card-transactions/create", data);
+      const response = await axios.post('/api/card-transactions/create', data);
 
       // Handle the response from the backend (e.g., show a success message)
-      console.log("Payment successful:", response.data);
+      console.log('Payment successful:', response.data);
 
-      toast.success("Payment made Successfully", {
-        position: "top-right",
+      toast.success('Payment made Successfully', {
+        position: 'top-right',
         autoClose: 3000, // Close the toast after 3 seconds
         hideProgressBar: false,
         closeOnClick: true,
@@ -226,14 +210,14 @@ function GenericForm({ heading, creditCardId, onHandleSubmit }) {
         draggable: true,
       });
 
-      setBillNumber("");
-      setAmount("");
+      setBillNumber('');
+      setAmount('');
     } catch (error) {
       // Handle any errors (e.g., show an error message)
-      console.error("Form submission failed:", error);
+      console.error('Form submission failed:', error);
       // Show an error toast message for the form submission
-      toast.error("Form Submission Failed", {
-        position: "top-right",
+      toast.error('Form Submission Failed', {
+        position: 'top-right',
         autoClose: 3000, // Close the toast after 3 seconds
         hideProgressBar: false,
         closeOnClick: true,
@@ -260,14 +244,7 @@ function GenericForm({ heading, creditCardId, onHandleSubmit }) {
         </div>
         <div className={styles.form_fields}>
           <label htmlFor="amount">Amount:</label>
-          <input
-            type="text"
-            id="amount"
-            value={amount}
-            onChange={handleAmountChange}
-            placeholder="Enter amount"
-            className={styles.form_input}
-          />
+          <input type="text" id="amount" value={amount} onChange={handleAmountChange} placeholder="Enter amount" className={styles.form_input} />
         </div>
         <button type="button" onClick={handleSubmit}>
           Pay

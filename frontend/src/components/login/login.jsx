@@ -3,17 +3,17 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import styles from './login.module.css';
-import { Link, useNavigate } from 'react-router-dom'; // Import useHistory
+import { Link } from 'react-router-dom'; // Import useHistory
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import studentCharacterTogether from '../../assets/student-character-together.webp';
 import { UserContext } from '../../ctx/UserContextProvider';
 
 function LoginPage() {
-  const navigate = useNavigate();
-  const { setUser, setIsAuthenticated } = useContext(UserContext);
+  const { login } = useContext(UserContext);
   const validateSchema = yup.object().shape({
     email: yup.string().email('Invalid email format').required('Email is required'),
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
@@ -23,10 +23,9 @@ function LoginPage() {
   } = useForm({
     resolver: yupResolver(validateSchema),
   });
-  // Destructure styles
+
   const {
     loginContainer,
-    // background,
     leftContainer,
     leftContainerImg,
     leftContainerContent,
@@ -55,8 +54,6 @@ function LoginPage() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [forgotPasswordMode, setForgotPasswordMode] = useState(false);
-  // Track "Forgot Password" mode
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -85,13 +82,7 @@ function LoginPage() {
       const response = await axios.post('/api/users/login', userData);
 
       if (response.status === 200) {
-        setUser(response.data.user);
-        setIsAuthenticated(true);
-        // localStorage.setItem('user', JSON.stringify(response.data.user));
-        // localStorage.setItem('token', response.data.token);
-        // window.dispatchEvent(new Event('storage'));
-        // navigate('/dashboard');
-        // window.location.reload();
+        login(response.data.user, response.data.token);
       }
     } catch (error) {
       setLoading(false);
@@ -112,10 +103,7 @@ function LoginPage() {
       <div className={loginContainer}>
         <div className={leftContainer}>
           <div className={leftContainerImg}>
-            <img
-              src="https://img.freepik.com/premium-vector/student-character-together-obtain-online-knowledge-people-tiny-classmate-work-with-laptop-flat-vecto_109722-3416.jpg?w=996"
-              width="600"
-            />
+            <img src={studentCharacterTogether} width="600" />
           </div>
           <div className={leftContainerContent}>
             <h2>Where Trust Meets Prosperity</h2>
@@ -164,7 +152,6 @@ function LoginPage() {
                 </select>
               </div>
 
-              {/* Security Answer Input */}
               <div className={styles.inputContainer}>
                 <label className={styles.label} htmlFor="securityAnswer">
                   Enter Security Answer
@@ -180,14 +167,13 @@ function LoginPage() {
                 />
               </div>
 
-              {!forgotPasswordMode && (
-                <div className={rememberMe}>
-                  <label className={rememberMeLabel}>
-                    <input className={rememberMeCheckbox} type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} />
-                    Remember me
-                  </label>
-                </div>
-              )}
+              <div className={rememberMe}>
+                <label className={rememberMeLabel}>
+                  <input className={rememberMeCheckbox} type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} />
+                  Remember me
+                </label>
+              </div>
+
               <div className={styles.btn_wrp}>
                 <button className={button} type="submit">
                   Login

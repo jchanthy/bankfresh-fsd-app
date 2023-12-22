@@ -96,31 +96,24 @@ import Card from './card';
 import ChartComponent from './chart';
 import Utilities from './utilities';
 import Transaction from './loan';
-import RecentPayee from './recentPayee';
 import axios from 'axios'; // Import Axios for making API requests
 import { UserContext } from '../../ctx/UserContextProvider';
 
 export default function Dashboard() {
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const [accountBalance, setAccountBalance] = useState(''); // Initialize account balance as an empty string
 
-  // const payees = [
-  //   { name: 'Flixxit', amount: '$300.00' },
-  //   { name: 'BankFresh', amount: '$150.00' },
-  //   { name: 'ScriptVault', amount: '$50.00' },
-  //   // Add more payee objects as needed
-  // ];
-
   useEffect(() => {
-    // Fetch account balance from the backend when the component mounts
-    // const userData = JSON.parse(localStorage.getItem('user'));
-
     // Access the user ID from user data
     const userId = user._id;
 
     // Make an API call to fetch the account balance
     axios
-      .get(`/api/users/${userId}`)
+      .get(`/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           // Set the account balance from the response data
@@ -132,7 +125,7 @@ export default function Dashboard() {
       .catch((error) => {
         console.error('Error fetching account balance:', error);
       });
-  }, [user._id]);
+  }, [user._id, token]);
 
   return (
     <div className={styles.dashboard}>
@@ -150,7 +143,7 @@ export default function Dashboard() {
           </div>
           <div className={styles.chartUtilities}>
             <Transaction />
-            {/* <RecentPayee payees={payees} /> */}
+
             <Utilities />
           </div>
         </div>

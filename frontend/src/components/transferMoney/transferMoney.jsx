@@ -5,7 +5,7 @@ import axios from 'axios';
 import { UserContext } from '../../ctx/UserContextProvider';
 
 function TransferMoney() {
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const [formData, setFormData] = useState({
     bankName: '',
     ifscCode: '',
@@ -41,20 +41,23 @@ function TransferMoney() {
     payeeName: '',
   });
 
-  const [profiles, setProfiles] = useState([]);
-
   useEffect(() => {
     async function fetchPayees() {
       try {
         const userId = user._id;
-        const response = await axios.get(`/api/payee/${userId}`);
-        setProfiles(response.data);
+        const response = await axios.get(`/api/payee/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        //setProfiles(response.data);
+        setAddedPayees(response.data);
       } catch (error) {
         console.error('Error fetching payees:', error);
       }
     }
     fetchPayees();
-  }, [user._id]);
+  }, [user._id, token]);
 
   const handleAddPayeeChange = (e) => {
     const { id, value } = e.target;
@@ -82,7 +85,6 @@ function TransferMoney() {
 
   const addNewPayee = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
       const userId = user._id;
       const { bankName, ifscCode, accountNo, accountType, payeeName } = addPayeeForm;
       const data = {
@@ -93,10 +95,14 @@ function TransferMoney() {
         accountType,
         payeeName,
       };
-      const response = await axios.post(`/api/payee/create`, data);
-      console.log(response);
+
+      const response = await axios.post(`/api/payee/create`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       alert('Payee added successfully.');
-      setAddedPayees([...addedPayees, data]);
+      setAddedPayees([...addedPayees, response.data]);
       setAddPayeeForm({
         bankName: '',
         ifscCode: '',
@@ -104,7 +110,6 @@ function TransferMoney() {
         accountType: '',
         payeeName: '',
       });
-      window.location.reload();
     } catch (error) {
       console.error('Error adding payee:', error);
       alert('Payee with same account number already exist.');
@@ -140,7 +145,6 @@ function TransferMoney() {
 
   const transferMoney = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
       const userId = user._id;
       const { amount, accountNo, reference } = formData;
 
@@ -156,8 +160,12 @@ function TransferMoney() {
         receiverName: reference,
       };
 
-      const response = await axios.post(`/api/transactions/create`, data);
-      console.log(response);
+      await axios.post(`/api/transactions/create`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       alert('Payment Successful.');
       setFormData({
         bankName: '',
@@ -288,7 +296,7 @@ function TransferMoney() {
                 </tr>
               </thead>
               <tbody>
-                {profiles.map((profile) => (
+                {addedPayees.map((profile) => (
                   <tr key={profile._id} onClick={() => handlePayeeRowClick(profile)}>
                     <td>{profile.payeeName}</td>
                     <td>{profile.bankName}</td>
