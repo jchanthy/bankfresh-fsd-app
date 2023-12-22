@@ -1,7 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const session = require('express-session');
-const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
@@ -17,29 +14,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Session middleware
-app.use(
-  session({
-    secret: 'your-secret-key',
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
-// Global variables for flash messages
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
-  next();
-});
-
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URI);
@@ -47,11 +21,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
-});
-
-// Check MongoDB connection status
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB On');
 });
 
 mongoose.connection.on('error', (err) => {

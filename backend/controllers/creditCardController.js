@@ -1,21 +1,17 @@
-const CreditCard = require("../models/CreditCard");
-const User = require("../models/User");
+const CreditCard = require('../models/CreditCard');
+const User = require('../models/User');
 
 // Function to generate a random credit card number
 function generateRandomCreditCardNumber() {
-  const prefix = "4"; // Visa card prefix
-  const randomNumber = Math.floor(
-    100000000000000 + Math.random() * 900000000000000
-  ); // Generate a 15-digit random number
+  const prefix = '4'; // Visa card prefix
+  const randomNumber = Math.floor(100000000000000 + Math.random() * 900000000000000); // Generate a 15-digit random number
   return prefix + randomNumber.toString().slice(0, 15); // Ensure it's 16 digits
 }
 
 // Function to generate a random expiration date in MM/YYYY format
 function generateRandomExpirationDate() {
-  const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, "0"); // Random month (01-12)
-  const year = String(
-    new Date().getFullYear() + Math.floor(Math.random() * 10)
-  ); // Random year (current year + 0 to 9)
+  const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0'); // Random month (01-12)
+  const year = String(new Date().getFullYear() + Math.floor(Math.random() * 10)); // Random year (current year + 0 to 9)
   return `${month}/${year}`;
 }
 
@@ -27,20 +23,17 @@ function generateRandomCVV() {
 // Create a new credit card
 exports.createCreditCard = async (req, res) => {
   try {
-    console.log("creditcard controller", req.body);
     const { userId } = req.body;
 
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     // Check if the user already has 3 cards
     if (user.cardNumber >= 3) {
-      return res
-        .status(400)
-        .json({ message: "User already has the maximum number of cards (3)." });
+      return res.status(400).json({ message: 'User already has the maximum number of cards (3).' });
     }
 
     const cardHolderName = user.fullName;
@@ -69,10 +62,10 @@ exports.createCreditCard = async (req, res) => {
     user.cardNumber += 1;
     await user.save();
 
-    res.status(201).json({ message: "Credit card created successfully" });
+    res.status(201).json({ message: 'Credit card created successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
@@ -80,21 +73,16 @@ exports.createCreditCard = async (req, res) => {
 exports.getCreditCardsByAccount = async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log("user id in credit card controller", userId);
-
     const creditCards = await CreditCard.find({ userId });
-    console.log(creditCards);
 
     if (!creditCards || creditCards.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No credit cards found for this user" });
+      return res.status(404).json({ message: 'No credit cards found for this user' });
     }
 
     res.status(200).json({ creditCards });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
@@ -106,7 +94,7 @@ exports.toggleCreditCardBlock = async (req, res) => {
     const creditCard = await CreditCard.findById(cardId);
 
     if (!creditCard) {
-      return res.status(404).json({ message: "Credit card not found" });
+      return res.status(404).json({ message: 'Credit card not found' });
     }
 
     // Toggle the 'block' field
@@ -117,13 +105,11 @@ exports.toggleCreditCardBlock = async (req, res) => {
 
     // Respond with a success message
     res.status(200).json({
-      message: `Credit card block status toggled to ${
-        creditCard.block ? "blocked" : "unblocked"
-      }`,
+      message: `Credit card block status toggled to ${creditCard.block ? 'blocked' : 'unblocked'}`,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
@@ -136,7 +122,7 @@ exports.updateTransactionLimit = async (req, res) => {
     const creditCard = await CreditCard.findById(cardId);
 
     if (!creditCard) {
-      return res.status(404).json({ error: "Credit card not found." });
+      return res.status(404).json({ error: 'Credit card not found.' });
     }
 
     // Update the transaction limit
@@ -145,11 +131,9 @@ exports.updateTransactionLimit = async (req, res) => {
     // Save the updated credit card
     await creditCard.save();
 
-    return res
-      .status(200)
-      .json({ message: "Transaction limit updated successfully." });
+    return res.status(200).json({ message: 'Transaction limit updated successfully.' });
   } catch (error) {
-    console.error("Error updating transaction limit:", error);
-    return res.status(500).json({ error: "Internal server error." });
+    console.error('Error updating transaction limit:', error);
+    return res.status(500).json({ error: 'Internal server error.' });
   }
 };
