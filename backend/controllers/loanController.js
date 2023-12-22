@@ -5,7 +5,7 @@ const User = require('../models/User');
 // Create a new loan request
 exports.createLoanRequest = async (req, res) => {
   try {
-    const { userId, loanAmount, loanTerm, loanPurpose, interestRate } = req.body;
+    const { userId, loanAmount, loanTermMonths, loanPurpose, interestRate } = req.body;
 
     // Check if the user exists
     const user = await User.findById(userId);
@@ -18,7 +18,7 @@ exports.createLoanRequest = async (req, res) => {
     const loanRequest = new Loan({
       userId,
       loanAmount,
-      loanTerm,
+      loanTerm: loanTermMonths,
       loanPurpose,
       interestRate,
     });
@@ -29,7 +29,7 @@ exports.createLoanRequest = async (req, res) => {
     res.status(201).json({ message: 'Loan request created successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', error });
   }
 };
 
