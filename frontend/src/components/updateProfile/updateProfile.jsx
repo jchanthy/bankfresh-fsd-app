@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './updateProfile.module.css';
 import axios from 'axios';
 import * as yup from 'yup';
@@ -10,8 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import profileBanner from '../../assets/profile-banner.jpeg';
+import { UserContext } from '../../ctx/UserContextProvider';
 
 const UpdateUser = () => {
+  const { user, token, updateUser } = useContext(UserContext);
   const validateSchema = yup.object().shape({
     name: yup.string().min(3, 'Name should be a minimum of 3 characters').required('Name is required'),
     email: yup.string().email('Invalid email format').required('Email is required'),
@@ -32,28 +34,18 @@ const UpdateUser = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(null);
-  const [userData, setUserData] = useState(null);
-
-  // Retrieve user data from local storage
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    const token = localStorage.getItem('token');
-    setUserData(userData);
-    setToken(token);
-  }, []);
 
   // Set form field values using setValue
   useEffect(() => {
-    if (userData) {
-      setValue('name', userData.fullName);
-      setValue('email', userData.email);
-      setValue('phoneNumber', userData.phoneNumber);
-      setValue('gender', userData.gender);
-      setValue('dob', userData.dob);
-      setValue('address', userData.address);
+    if (user) {
+      setValue('name', user.fullName);
+      setValue('email', user.email);
+      setValue('phoneNumber', user.phoneNumber);
+      setValue('gender', user.gender);
+      setValue('dob', user.dob);
+      setValue('address', user.address);
     }
-  }, [userData, setValue]);
+  }, [user, setValue]);
 
   const handleProfileUpdate = async (value) => {
     try {
@@ -68,7 +60,7 @@ const UpdateUser = () => {
         password: value.password,
       };
 
-      const response = await axios.put(`/api/users/update/${userData._id}`, updatedUserData, {
+      const response = await axios.put(`/api/users/update/${user._id}`, updatedUserData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -76,7 +68,16 @@ const UpdateUser = () => {
 
       toast.success(response?.data?.message);
       // Update the user data in local storage
-      localStorage.setItem('user', JSON.stringify(updatedUserData));
+      updateUser({
+        _id: user._id,
+        fullName: value.name,
+        email: value.email,
+        phoneNumber: value.phoneNumber,
+        gender: value.gender,
+        dob: value.dob,
+        address: value.address,
+      });
+
       setLoading(false);
     } catch (err) {
       setLoading(false);

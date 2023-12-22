@@ -32,6 +32,13 @@ export function UserContextProvider({ children }) {
     setToken(token);
   }
 
+  function updateUser(user) {
+    // Save the user to localStorage
+    localStorage.setItem('bankfresh-user', JSON.stringify(user));
+    // Set the user and token in state
+    setUser(user);
+  }
+
   function logout() {
     // Remove the user and token from localStorage
     localStorage.removeItem('bankfresh-user');
@@ -41,5 +48,5 @@ export function UserContextProvider({ children }) {
     setIsAuthenticated(false);
     setToken(null);
   }
-  return <UserContext.Provider value={{ user, login, isAuthenticated, token, logout }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, login, isAuthenticated, token, updateUser, logout }}>{children}</UserContext.Provider>;
 }
