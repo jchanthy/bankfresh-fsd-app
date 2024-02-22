@@ -4,6 +4,8 @@
 ## Introduction
 BankFresh is a dynamic net banking web application designed to provide users with a secure and smooth banking experience. It features key banking functionalities such as account access, transaction history, fund transfers, and digital statement downloads.
 
+## IMPORTANT NOTE: This project is hosted on this account as part of the sample capstone projects in the Full-Stack Development Program provided by upGrad KnowledgeHut. Support shall only be provided through official channels and tickets through your PRISM account if you're a registered learner. For everyone else, the project is provided as is for tinkering however no support would be provided.
+
 ## Setup Instructions
 
 ### Prerequisites
